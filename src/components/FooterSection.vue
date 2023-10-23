@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="right-wrapper">
-      <div class="users">
+      <!-- <div class="users">
         <p class="follower"><i class="fa-solid fa-hashtag"></i> followers</p>
         <div class="user-image">
           <div class="profile-image">
@@ -26,7 +26,7 @@
             <p>Kate, Saviour, and 17 other</p>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="subscription">
         <input type="text" placeholder="subscribe with email" /><button>Submit Email</button>
       </div>
