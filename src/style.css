@@ -1,23 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Oxygen:wght@300;400;700&family=Pacifico&display=swap');
 
-
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-:root{
-    --primary-color: rgb(152, 62, 203);
-    --secondary-color: rgb(95, 158, 246);    
-    --header: "Lilita One";
-    --style-font: Pacifico;
-    
+:root {
+  --secondary-color: black;
+  --primary-color: rgb(2, 2, 56);
+  --header: 'Lilita One';
+  --style-font: Pacifico;
 }
 
-body{
-    font-family: Oxygen;
-    max-width: 1440px;
-    margin: auto;
-   
+body {
+  font-family: Oxygen;
+  max-width: 1440px;
+  margin: auto;
 }

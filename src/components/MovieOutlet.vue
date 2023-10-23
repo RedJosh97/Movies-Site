@@ -1,17 +1,21 @@
-<!-- <template>
+<template>
   <div class="movie-outlet">
+    <h4>Media</h4>
     <div class="movie-container">
-      <div
-        class="card"
-        v-for="movie in grabMovies"
-        :key="movie.imdbID"
-        :class="{ 'movie-card': movie.Type === 'movie', 'series-card': movie.Type === 'series' }"
-      >
+      <div class="card" v-for="movie in grabMovies" :key="movie.imdbID">
         <img :src="movie.Poster" alt="poster" class="image-card" />
-        <p class="movie-title">{{ movie.Title }}</p>
         <div class="description">
-          <p>{{ movie.Type }}</p>
-          <p>{{ movie.Year }}</p>
+          <p class="movie-title">{{ movie.Title }}</p>
+          <div class="year-and-movieType">
+            <p
+              :class="{
+                'series-card': movie.Type === 'series'
+              }"
+            >
+              {{ movie.Type }}
+            </p>
+            <p>{{ movie.Year }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -23,15 +27,17 @@ import axios from 'axios'
 
 export default {
   name: 'MovieOutlet',
-
   data() {
     return {
-      grabMovies: []
+      grabMovies: [],
+      display: false
     }
   },
+
   mounted() {
     this.fetchData()
   },
+
   methods: {
     fetchData() {
       axios
@@ -45,66 +51,13 @@ export default {
     }
   }
 }
-</script> -->
-
-<template>
-  <div class="movie-outlet">
-    <h4>Media</h4>
-    <div class="movie-container">
-      <div
-        class="card"
-        v-for="movie in grabMovies"
-        :key="movie.imdbID"
-        :class="{ 'movie-card': movie.Type === 'movie', 'series-card': movie.Type === 'series' }"
-      >
-        <!-- <img :src="movie.Poster" alt="poster" class="image-card" /> -->
-        <p class="movie-title">{{ movie.Title }}</p>
-        <div class="description">
-          <p>{{ movie.Type }}</p>
-          <p>{{ movie.Year }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import axios from 'axios'
-
-export default {
-  name: 'MovieOutlet',
-  data() {
-    return {
-      grabMovies: []
-    }
-  },
-
-  mounted() {
-    this.fetchData()
-  },
-
-  methods: {
-    fetchData() {
-      axios
-        .get('http://www.omdbapi.com/?s=series&apikey=bfe0cf61')
-        .then((res) => {
-          this.grabMovies = res.data.Search
-        })
-        .catch((error) => {
-          console.error('Error:', error)
-        })
-    }
-  }
-}
 </script>
 
 <style scoped>
-.movie-card {
-  background-color: lightblue;
-}
-
 .series-card {
-  background-color: lightgreen;
+  background-color: red;
+  padding: 2px;
+  border-radius: 5px;
 }
 .movie-outlet {
   padding: 1rem 2.5rem;
@@ -130,9 +83,8 @@ export default {
 .movie-container .card {
   background: rgb(235, 229, 229);
   border-radius: 14px;
-  height: 290px;
-  min-width: 210px;
-  width: 20%;
+  height: 300px;
+  min-width: 250px;
   object-fit: cover;
   position: relative;
 }
@@ -140,16 +92,21 @@ export default {
 .card .movie-title {
   display: flex;
   align-self: flex-end;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.year-and-movieType {
+  display: flex;
+  justify-content: space-between;
 }
 
 .card .description {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   position: absolute;
   background: var(--primary-color);
   width: 100%;
-  height: 45px;
   padding: 13px;
   bottom: 0;
   left: 0;

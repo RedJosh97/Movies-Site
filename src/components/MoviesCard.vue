@@ -1,5 +1,8 @@
 <template>
-  <div class="movie-outlet">
+  <div class="movie-card">
+    <video muted loop allowfullscreen>
+      <source :src="watch" />
+    </video>
     <div class="search-display" v-for="movie in movies" :key="movie.imdbID"></div>
   </div>
 </template>
@@ -12,14 +15,18 @@ export default {
     return {
       movies: [],
       searchQuery: '',
-      passKey: 'bfe0cf61'
+      pageNumber: 3,
+      passKey: 'bfe0cf61',
+      watch: '/public/images/THE_CHANNEL_Official_Trailer_(2023)(720p).mp4'
     }
   },
 
   methods: {
     fetchMovieData() {
       axios
-        .get(`http://www.omdbapi.com/?s=${this.searchQuery}&apikey=${this.passKey}`)
+        .get(
+          `http://www.omdbapi.com/?s=${this.searchQuery}&apikey=${this.passKey}?page=${this.pageNumber}`
+        )
         .then((response) => {
           this.movies = response.data
         })
@@ -32,7 +39,14 @@ export default {
 </script>
 
 <style scoped>
-.movie-outlet {
-  padding: 1rem 2.5rem;
+.movie-card {
+  height: 100vh;
+  background: black;
+}
+
+video {
+  width: 100%;
+  height: 100vh;
+  border-radius: 16px;
 }
 </style>
