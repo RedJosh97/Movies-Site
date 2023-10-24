@@ -26,10 +26,10 @@
             <p>Kate, Saviour, and 17 other</p>
           </div>
         </div>
-      </div> -->
+      </div> 
       <div class="subscription">
         <input type="text" placeholder="subscribe with email" /><button>Submit Email</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
