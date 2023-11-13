@@ -6,7 +6,7 @@
       <div class="card" v-for="movie in listedMoviesToDisplay" :key="movie.id">
         <div v-if="movie.toggle" class="movie-overview">
           <p class="movie-title">{{ movie.title }}</p>
-          <p class="movie-title">{{ movie.overview }}</p>
+          <p class="overview-text">{{ movie.overview }}</p>
         </div>
         <img
           v-else
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <button v-if="showBtn" @click="moreMovieSlide" class="more-item">See more</button>
+    <button v-if="showBtn" @click="moreMovieSlide" class="more-item">More Movies</button>
   </div>
 </template>
 
@@ -72,7 +72,6 @@ export default {
       axios
         .get(`${this.apiUrl}/movie/popular?api_key=${this.apiKey}`)
         .then((res) => {
-          console.log(res.data.results)
           this.grabMovies = res.data.results
         })
         .catch((error) => {
@@ -83,7 +82,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .errorNotice {
   color: #fff;
   font-size: 31px;
@@ -95,6 +94,10 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+}
+
+.movie-overview .movie-title:hover {
+  color: #fff !important;
 }
 
 .overview {
@@ -121,11 +124,10 @@ export default {
 
 .movie-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 35px;
+  gap: 40px;
   align-items: center;
-  margin-top: 2rem;
 }
 
 .movie-outlet h4 {
@@ -144,7 +146,11 @@ export default {
 }
 
 .card:hover {
-  background: green;
+  background: var(--primary-color);
+}
+
+.more-item:hover {
+  opacity: 0.9;
 }
 
 .more-item {
@@ -160,10 +166,18 @@ export default {
   cursor: pointer;
 }
 
-.card .movie-title {
-  display: flex;
+.movie-title,
+.overview-text {
   padding-bottom: 5px;
   border-bottom: 2px solid var(--secondary-color);
+  font-weight: bolder;
+  color: red;
+  text-align: center;
+}
+
+.movie-title:hover,
+.movie-year:hover {
+  color: green;
 }
 
 .year-and-movieType {
@@ -190,15 +204,6 @@ export default {
 .card .image-card {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   border-radius: 12px;
-}
-
-.card .movie-title {
-  font-weight: bolder;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  color: var(--secondary-color);
 }
 </style>

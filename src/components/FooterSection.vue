@@ -13,8 +13,8 @@
         <i class="fa-brands fa-instagram"></i>
       </div>
     </div>
-    <div class="right-wrapper">
-      <!-- <div class="users">
+    <!-- <div class="right-wrapper">
+      <div class="users">
         <p class="follower"><i class="fa-solid fa-hashtag"></i> followers</p>
         <div class="user-image">
           <div class="profile-image">
@@ -29,8 +29,8 @@
       </div> 
       <div class="subscription">
         <input type="text" placeholder="subscribe with email" /><button>Submit Email</button>
-      </div> -->
-    </div>
+      </div>
+    </div> -->
   </div>
 </template>
 
