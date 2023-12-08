@@ -6,16 +6,14 @@
     <div class="movie-display">
       <form @submit.prevent="searchMovies">
         <div class="search-box">
-          <input type="text" placeholder="Search Movies" v-model="searchQuery" /><button
-            type="submit"
-          >
-            Search
-          </button>
+          <i class="las la-search"></i>
+          <input type="text" placeholder="Search Movies" v-model="searchQuery" />
+          <button class="" type="submit">Search</button>
         </div>
       </form>
       <div class="movie-display">
         <div v-if="errorMsg" class="errorNotice">{{ errorMsg }}</div>
-        <div v-else class="movie-container">
+        <div class="movie-container">
           <div class="card" v-for="movie in moviesPost" :key="movie.id">
             <div v-if="movie.toggle" class="movie-overview">
               <p class="movie-title">{{ movie.title }}</p>
@@ -76,13 +74,20 @@ export default {
 
     searchMovies() {
       const searchUrl = `${this.apiUrl}/search/movie?api_key=${this.apiKey}&query=${this.searchQuery}`
+      this.searchQuery = ''
 
       axios
         .get(searchUrl)
         .then((response) => {
-          this.moviesPost = response.data.results
+          if (response.data.results.length === 0) {
+            this.errorMsg = 'movie not found'
+            this.moviesPost = []
+          } else {
+            this.moviesPost = response.data.results
+          }
           console.log('correct', response.data.results)
         })
+
         .catch((error) => {
           console.error('Error fetching movies:', error)
         })
@@ -94,6 +99,42 @@ export default {
 <style scoped>
 .movie-card {
   background: black;
+}
+
+.search-box {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  outline: none;
+  gap: 13px;
+  background: #fff;
+  border-radius: 14px;
+}
+
+.search-box button {
+  background: red;
+  color: #fff;
+  height: 100%;
+  padding: 3px 48px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.la-search {
+  font-size: 2rem;
+  padding-left: 8px;
+}
+
+.search-box input {
+  padding: 5px 10px;
+  border-radius: 14px;
+  outline: none;
+  width: 100%;
+  font-size: 19px;
+  border: none;
 }
 
 video {

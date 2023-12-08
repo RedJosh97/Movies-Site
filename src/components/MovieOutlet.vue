@@ -86,6 +86,7 @@ export default {
 .errorNotice {
   color: #fff;
   font-size: 31px;
+  text-align: center;
 }
 
 .movie-overview {
@@ -114,7 +115,6 @@ export default {
   opacity: 0.8;
 }
 .movie-outlet {
-  padding: 1rem 2.5rem;
   background: var(--secondary-color);
   display: flex;
   align-items: center;
@@ -124,9 +124,11 @@ export default {
 
 .movie-container {
   display: flex;
+  padding: 1rem 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 4%;
+  row-gap: 30px;
   align-items: center;
 }
 
@@ -140,8 +142,8 @@ export default {
 .movie-container .card {
   background: rgb(235, 229, 229);
   border-radius: 14px;
-  height: 300px;
-  min-width: 250px;
+  height: 350px;
+  min-width: 300px;
   position: relative;
 }
 
@@ -173,6 +175,24 @@ export default {
   font-weight: bolder;
   color: red;
   text-align: center;
+}
+
+.overview-text {
+  height: 215px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--primary-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    border: 2px solid red;
+  }
 }
 
 .movie-title:hover,

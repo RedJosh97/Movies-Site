@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <NavBarSection />
+  <NavBarSection />
+  <div class="app">
     <MoviesCard />
     <MovieOutlet />
     <FooterSection />
@@ -23,4 +23,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.app {
+  max-width: 1440px;
+  margin: auto;
+}
+</style>
