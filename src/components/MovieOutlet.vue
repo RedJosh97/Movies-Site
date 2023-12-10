@@ -117,6 +117,7 @@ export default {
 .movie-outlet {
   background: var(--secondary-color);
   display: flex;
+  padding: 2rem 0;
   align-items: center;
   flex-direction: column;
   gap: 60px;
@@ -152,7 +153,10 @@ export default {
 }
 
 .more-item:hover {
-  opacity: 0.9;
+  background: red;
+  transition: 0.3s ease-in;
+  color: #fff;
+  transform: translateY(-8px);
 }
 
 .more-item {

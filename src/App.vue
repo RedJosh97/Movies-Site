@@ -3,8 +3,8 @@
   <div class="app">
     <MoviesCard />
     <MovieOutlet />
-    <FooterSection />
   </div>
+  <FooterSection />
 </template>
 
 <script>
