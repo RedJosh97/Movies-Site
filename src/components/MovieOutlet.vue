@@ -97,7 +97,7 @@ export default {
 }
 
 .movie-overview .movie-title:hover {
-  color: #fff !important;
+  color: #fff;
 }
 
 .overview {
@@ -177,7 +177,7 @@ export default {
 }
 
 .overview-text {
-  height: 215px;
+  height: 315px;
   overflow: auto;
   scroll-behavior: smooth;
 
@@ -193,11 +193,6 @@ export default {
     border-radius: 12px;
     border: 2px solid red;
   }
-}
-
-.movie-title:hover,
-.movie-year:hover {
-  color: green;
 }
 
 .year-and-movieType {

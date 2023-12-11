@@ -12,7 +12,7 @@
         </div>
       </form>
       <div class="movie-display">
-        <div v-if="isLoading" class="loader-container">
+        <div v-if="isLoading" class="loader-container load">
           <div class="loader"></div>
           <div class="loader-text">Loading...</div>
         </div>
@@ -173,6 +173,17 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.load {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  transition: all ease-out 2s;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100vh;
 }
 
 .loader {
