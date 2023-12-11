@@ -36,7 +36,6 @@ export default {
       grabMovies: [],
       apiKey: '25814457dd63d4a85b7862eb51b3a95a',
       apiUrl: 'https://api.themoviedb.org/3',
-      errorMsg: null,
       movieCount: 8
     }
   },
@@ -124,13 +123,11 @@ export default {
 }
 
 .movie-container {
-  display: flex;
-  padding: 1rem 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 4%;
-  row-gap: 30px;
-  align-items: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px;
+  padding: 1rem 4rem;
 }
 
 .movie-outlet h4 {
@@ -143,8 +140,6 @@ export default {
 .movie-container .card {
   background: rgb(235, 229, 229);
   border-radius: 14px;
-  height: 350px;
-  min-width: 300px;
   position: relative;
 }
 
@@ -227,8 +222,9 @@ export default {
 }
 
 .card .image-card {
-  width: 300px;
-  height: 320px;
+  width: 100%;
+  /* height: auto; */
+  height: 400px;
   border-radius: 12px;
 }
 </style>

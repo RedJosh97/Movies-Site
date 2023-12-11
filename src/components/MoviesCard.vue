@@ -11,23 +11,22 @@
           <button class="" type="submit">Search</button>
         </div>
       </form>
-      <div v-if="isLoading" class="errorNotice">...please wait</div>
       <div class="movie-display">
-        <div v-if="isLoading" class="loading">Loading&#8230;</div>
+        <div v-if="isLoading" class="loader-container">
+          <div class="loader"></div>
+          <div class="loader-text">Loading...</div>
+        </div>
         <div v-if="errorMsg" class="errorNotice">{{ errorMsg }}</div>
+
         <div class="movie-container">
-          <div class="card" v-for="movie in moviesPost" :key="movie.id">
+          <div class="card" v-for="movie in (moviesPost, filteredMovies)" :key="movie.id">
             <div v-if="movie.toggle" class="movie-overview">
               <p class="movie-title">{{ movie.title }}</p>
               <p class="overview-text">{{ movie.overview }}</p>
             </div>
             <img
               v-else
-              :src="
-                movie.poster_path
-                  ? 'https://image.tmdb.org/t/p/w200' + movie.poster_path
-                  : '/public/images/image not found.png'
-              "
+              :src="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
               alt="poster"
               class="image-card"
             />
@@ -80,14 +79,18 @@ export default {
 
     searchMovies() {
       this.isLoading = true
+      this.errorMsg = ''
       const searchUrl = `${this.apiUrl}/search/movie?api_key=${this.apiKey}&query=${this.searchQuery}`
 
       axios
         .get(searchUrl)
         .then((response) => {
           if (response.data.results.length === 0) {
-            this.errorMsg = 'movie not found'
-            this.moviesPost = []
+            // this.errorMsg = 'movie not found'
+            setTimeout(() => {
+              this.errorMsg = 'movie not found'
+              this.moviesPost = []
+            }, 1000)
           } else {
             this.moviesPost = response.data.results
           }
@@ -97,14 +100,22 @@ export default {
           console.error('Error fetching movies:', error)
         })
         .finally(() => {
-          this.isLoading = false
+          setTimeout(() => {
+            this.isLoading = false
+          }, 2000)
         })
+    }
+  },
+
+  computed: {
+    filteredMovies() {
+      return this.moviesPost.filter((movie) => movie.poster_path !== null)
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 .movie-card {
   background: black;
 }
@@ -150,13 +161,94 @@ video {
   border-radius: 16px;
 }
 
-.movie-display {
-  padding: 1rem 2.5rem;
-}
-
 form {
   width: 50%;
   margin: auto;
   margin-bottom: 32px;
+}
+
+.loader-container {
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+
+.loader:before {
+  content: '';
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 6px solid red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.loader:after {
+  content: '';
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  border-top-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: spin 2s linear infinite;
+}
+
+.loader-text {
+  font-size: 24px;
+  margin-top: 20px;
+  color: red;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.content {
+  display: none;
+}
+
+.loaded .loader-container {
+  display: none;
+}
+
+.loaded .content {
+  display: block;
 }
 </style>
