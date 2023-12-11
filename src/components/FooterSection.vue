@@ -13,7 +13,7 @@
         <i class="fa-brands fa-instagram"></i>
       </div>
     </div>
-    <!-- <div class="right-wrapper">
+    <div class="right-wrapper">
       <div class="users">
         <p class="follower"><i class="fa-solid fa-hashtag"></i> followers</p>
         <div class="user-image">
@@ -26,11 +26,11 @@
             <p>Kate, Saviour, and 17 other</p>
           </div>
         </div>
-      </div> 
+      </div>
       <div class="subscription">
         <input type="text" placeholder="subscribe with email" /><button>Submit Email</button>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -46,6 +46,8 @@ export default {
   padding: 1rem 2.5rem;
   background: var(--secondary-color);
   display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -53,6 +55,14 @@ export default {
 .social-icons {
   display: flex;
   gap: 10px;
+}
+
+.social-icons .fa-brands:hover {
+  background: red;
+  transition: background-color 0.3s ease-in;
+  color: #fff;
+  transition: ease-out 0.5s;
+  transform: translateY(-8px);
 }
 
 .left-wrapper {

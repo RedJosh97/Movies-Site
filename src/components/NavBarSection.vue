@@ -49,42 +49,10 @@ export default {
 <style>
 .nav-section {
   background: var(--primary-color);
-  width: 100%;
   padding: 0.1rem 2.5rem;
-  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.search-box {
-  height: 35px;
-  display: flex;
-  justify-content: space-between;
-  border: none;
-  outline: none;
-  min-width: 320px;
-  gap: 13px;
-  background: #fff;
-  border-radius: 14px;
-}
-
-.search-box button {
-  background: red;
-  color: #fff;
-  padding: 3px 18px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-}
-
-.search-box input {
-  padding: 5px 10px;
-  border-radius: 14px;
-  outline: none;
-  width: 100%;
-  font-size: 19px;
-  border: none;
 }
 
 .logo-style {

@@ -36,7 +36,6 @@ export default {
       grabMovies: [],
       apiKey: '25814457dd63d4a85b7862eb51b3a95a',
       apiUrl: 'https://api.themoviedb.org/3',
-      errorMsg: null,
       movieCount: 8
     }
   },
@@ -86,6 +85,7 @@ export default {
 .errorNotice {
   color: #fff;
   font-size: 31px;
+  text-align: center;
 }
 
 .movie-overview {
@@ -114,20 +114,20 @@ export default {
   opacity: 0.8;
 }
 .movie-outlet {
-  padding: 1rem 2.5rem;
   background: var(--secondary-color);
   display: flex;
+  padding: 2rem 0;
   align-items: center;
   flex-direction: column;
   gap: 60px;
 }
 
 .movie-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 40px;
-  align-items: center;
+  padding: 1rem 4rem;
 }
 
 .movie-outlet h4 {
@@ -140,8 +140,6 @@ export default {
 .movie-container .card {
   background: rgb(235, 229, 229);
   border-radius: 14px;
-  height: 300px;
-  min-width: 250px;
   position: relative;
 }
 
@@ -150,7 +148,10 @@ export default {
 }
 
 .more-item:hover {
-  opacity: 0.9;
+  background: red;
+  transition: 0.3s ease-in;
+  color: #fff;
+  transform: translateY(-8px);
 }
 
 .more-item {
@@ -173,6 +174,25 @@ export default {
   font-weight: bolder;
   color: red;
   text-align: center;
+}
+
+.overview-text {
+  height: 215px;
+  overflow: auto;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--primary-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    border: 2px solid red;
+  }
 }
 
 .movie-title:hover,
@@ -203,7 +223,8 @@ export default {
 
 .card .image-card {
   width: 100%;
-  height: 100%;
+  /* height: auto; */
+  height: 400px;
   border-radius: 12px;
 }
 </style>
