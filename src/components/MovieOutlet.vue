@@ -184,6 +184,7 @@ export default {
 .overview-text {
   height: 215px;
   overflow: auto;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -226,8 +227,8 @@ export default {
 }
 
 .card .image-card {
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 320px;
   border-radius: 12px;
 }
 </style>

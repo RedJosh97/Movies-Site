@@ -46,6 +46,8 @@ export default {
   padding: 1rem 2.5rem;
   background: var(--secondary-color);
   display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -59,6 +61,7 @@ export default {
   background: red;
   transition: background-color 0.3s ease-in;
   color: #fff;
+  transition: ease-out 0.5s;
   transform: translateY(-8px);
 }
 

@@ -11,7 +11,9 @@
           <button class="" type="submit">Search</button>
         </div>
       </form>
+      <div v-if="isLoading" class="errorNotice">...please wait</div>
       <div class="movie-display">
+        <div v-if="isLoading" class="loading">Loading&#8230;</div>
         <div v-if="errorMsg" class="errorNotice">{{ errorMsg }}</div>
         <div class="movie-container">
           <div class="card" v-for="movie in moviesPost" :key="movie.id">
@@ -21,7 +23,11 @@
             </div>
             <img
               v-else
-              :src="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
+              :src="
+                movie.poster_path
+                  ? 'https://image.tmdb.org/t/p/w200' + movie.poster_path
+                  : '/public/images/image not found.png'
+              "
               alt="poster"
               class="image-card"
             />
@@ -48,7 +54,7 @@ export default {
       apiKey: '25814457dd63d4a85b7862eb51b3a95a',
       apiUrl: 'https://api.themoviedb.org/3',
       searchQuery: '',
-
+      isLoading: false,
       playVideo: false,
       btnShow: true,
       backgroundVideo:
@@ -73,8 +79,8 @@ export default {
     },
 
     searchMovies() {
+      this.isLoading = true
       const searchUrl = `${this.apiUrl}/search/movie?api_key=${this.apiKey}&query=${this.searchQuery}`
-      this.searchQuery = ''
 
       axios
         .get(searchUrl)
@@ -87,9 +93,11 @@ export default {
           }
           console.log('correct', response.data.results)
         })
-
         .catch((error) => {
           console.error('Error fetching movies:', error)
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     }
   }
