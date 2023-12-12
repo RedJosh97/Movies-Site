@@ -35,7 +35,7 @@ export default {
     this.loadingState = true
     setTimeout(() => {
       this.loadingState = false
-    }, 500)
+    }, 3000)
   }
 }
 </script>
