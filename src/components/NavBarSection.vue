@@ -6,11 +6,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'NavBarSection'
-}
-</script>
+<script setup></script>
 
 <style>
 .nav-section {

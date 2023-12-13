@@ -34,11 +34,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'FooterSection'
-}
-</script>
+<script setup></script>
 
 <style>
 .footer-section {

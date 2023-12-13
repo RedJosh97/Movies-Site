@@ -1,7 +1,6 @@
 <template>
   <div v-if="loadingState" class="loader-container load">
     <div class="loader"></div>
-    <div class="loader-text">Loading...</div>
   </div>
 
   <NavBarSection />
@@ -12,32 +11,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
 import NavBarSection from './components/NavBarSection.vue'
 import FooterSection from './components/FooterSection.vue'
 import MoviesCard from './components/MoviesCard.vue'
 import MovieOutlet from './components/MovieOutlet.vue'
 
-export default {
-  data() {
-    return {
-      loadingState: true
-    }
-  },
-  components: {
-    NavBarSection,
-    FooterSection,
-    MoviesCard,
-    MovieOutlet
-  },
+const loadingState = ref(true)
 
-  mounted() {
-    this.loadingState = true
-    setTimeout(() => {
-      this.loadingState = false
-    }, 3000)
-  }
-}
+onMounted(() => {
+  setTimeout(() => {
+    loadingState.value = false
+  }, 3000)
+})
 </script>
 
 <style scoped>

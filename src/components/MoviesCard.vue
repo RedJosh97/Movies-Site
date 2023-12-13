@@ -43,76 +43,63 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
+import { computed, ref } from 'vue'
 
-export default {
-  data() {
-    return {
-      moviesPost: [],
-      apiKey: '25814457dd63d4a85b7862eb51b3a95a',
-      apiUrl: 'https://api.themoviedb.org/3',
-      searchQuery: '',
-      isLoading: false,
-      playVideo: false,
-      btnShow: true,
-      backgroundVideo:
-        '/public/images/Mission_ Impossible – Dead Reckoning Part One _ Official Trailer (2023 Movie) - Tom Cruise.mp4'
-    }
-  },
+const moviesPost = ref([])
+const apiKey = '25814457dd63d4a85b7862eb51b3a95a'
+const apiUrl = 'https://api.themoviedb.org/3'
+const searchQuery = ref('')
+const isLoading = ref(false)
+const playVideo = ref(false)
+const backgroundVideo =
+  '/public/images/Mission_ Impossible – Dead Reckoning Part One _ Official Trailer (2023 Movie) - Tom Cruise.mp4'
 
-  methods: {
-    isPlaying() {
-      const video = this.$refs.videoPlay
+const isPlaying = () => {
+  const video = this.$refs.videoPlay
 
-      if (this.playVideo) {
-        video.pause()
-      } else {
-        video.play()
-      }
-      this.playVideo = !this.playVideo
-    },
-
-    toggleBtn(movie) {
-      movie.toggle = !movie.toggle
-    },
-
-    searchMovies() {
-      this.isLoading = true
-      this.errorMsg = ''
-      const searchUrl = `${this.apiUrl}/search/movie?api_key=${this.apiKey}&query=${this.searchQuery}`
-
-      axios
-        .get(searchUrl)
-        .then((response) => {
-          if (response.data.results.length === 0) {
-            // this.errorMsg = 'movie not found'
-            setTimeout(() => {
-              this.errorMsg = 'movie not found'
-              this.moviesPost = []
-            }, 1000)
-          } else {
-            this.moviesPost = response.data.results
-          }
-          console.log('correct', response.data.results)
-        })
-        .catch((error) => {
-          console.error('Error fetching movies:', error)
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.isLoading = false
-          }, 4000)
-        })
-    }
-  },
-
-  computed: {
-    filteredMovies() {
-      return this.moviesPost.filter((movie) => movie.poster_path !== null)
-    }
+  if (playVideo.value) {
+    video.pause()
+  } else {
+    video.play()
   }
+  playVideo.value = !playVideo.value
 }
+
+const toggleBtn = (movie) => {
+  movie.toggle = !movie.toggle
+}
+
+const searchMovies = () => {
+  isLoading.value = true
+  const searchUrl = `${apiUrl}/search/movie?api_key=${apiKey}&query=${searchQuery.value}`
+
+  axios
+    .get(searchUrl)
+    .then((response) => {
+      if (response.data.results.length === 0) {
+        setTimeout(() => {
+          moviesPost.value = []
+        }, 1000)
+      } else {
+        moviesPost.value = response.data.results
+      }
+      console.log('correct', response.data.results)
+    })
+    .catch((error) => {
+      console.error('Error fetching movies:', error)
+    })
+    .finally(() => {
+      setTimeout(() => {
+        isLoading.value = false
+      }, 4000)
+    })
+}
+
+const filteredMovies = computed(() => {
+  return moviesPost.value.filter((movie) => movie.poster_path !== null)
+})
 </script>
 
 <style>

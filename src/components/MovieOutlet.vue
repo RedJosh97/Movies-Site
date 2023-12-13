@@ -25,60 +25,42 @@
     <button v-if="showBtn" @click="moreMovieSlide" class="more-item">More Movies</button>
   </div>
 </template>
-
-<script>
+<script setup>
 import axios from 'axios'
+import { computed, ref, onMounted } from 'vue'
 
-export default {
-  name: 'MovieOutlet',
-  data() {
-    return {
-      grabMovies: [],
-      apiKey: '25814457dd63d4a85b7862eb51b3a95a',
-      apiUrl: 'https://api.themoviedb.org/3',
-      movieCount: 8
-    }
-  },
+const apiKey = '25814457dd63d4a85b7862eb51b3a95a'
+const apiUrl = 'https://api.themoviedb.org/3'
 
-  mounted() {
-    this.fetchData()
-  },
+let grabMovies = []
+let movieCount = 8
 
-  computed: {
-    listedMoviesToDisplay() {
-      return this.grabMovies.slice(0, this.movieCount)
-    },
+const listedMoviesToDisplay = ref(grabMovies.slice(0, movieCount))
+const otherMovies = ref(grabMovies.slice(movieCount))
+const showBtn = computed(() => otherMovies.value.length > 0)
 
-    otherMovies() {
-      return this.grabMovies.slice(this.movieCount)
-    },
+const toggleBtn = (movie) => {
+  movie.toggle = !movie.toggle
+}
 
-    showBtn() {
-      return this.otherMovies.length > 0
-    }
-  },
+const moreMovieSlide = () => {
+  movieCount += 8
+}
 
-  methods: {
-    toggleBtn(movie) {
-      movie.toggle = !movie.toggle
-    },
-
-    moreMovieSlide() {
-      this.movieCount += 8
-    },
-
-    fetchData() {
-      axios
-        .get(`${this.apiUrl}/movie/popular?api_key=${this.apiKey}`)
-        .then((res) => {
-          this.grabMovies = res.data.results
-        })
-        .catch((error) => {
-          this.errorMsg = 'Bad request: ' + error.message
-        })
-    }
+const fetchData = async () => {
+  try {
+    const res = await axios.get(`${apiUrl}/movie/popular?api_key=${apiKey}`)
+    grabMovies = res.data.results
+    listedMoviesToDisplay.value = grabMovies.slice(0, movieCount)
+    otherMovies.value = grabMovies.slice(movieCount)
+  } catch (error) {
+    console.error('Bad request: ', error.message)
   }
 }
+
+onMounted(() => {
+  fetchData()
+})
 </script>
 
 <style>
